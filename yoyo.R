@@ -1,3 +1,4 @@
+
 ## Measure yo-yo effect (weight cycling) with panel data
 
 yoyo <- function(panel, pid, waves, bmi, append = TRUE) {
@@ -32,11 +33,12 @@ yoyo <- function(panel, pid, waves, bmi, append = TRUE) {
 
 ## Arguments         
 # panel     Data frame containing repeated measures data
-# pid       Participant identifier (column-indice)
-# waves     Wave/time variable (column-indice)
-# bmi       Measured bmi (column-indice)
-# append    Logical, if TRUE (default) data frame from panel-argument with added yo-yo column is returned; 
-#                    if FALSE, data frame with indices specified in arguments with added yo-yo column returned.
+# pid       Participant identifier (column-index)
+# waves     Wave/time variable (column-index)
+# bmi       Measured BMI (column-index)
+# append    Logical, if TRUE (default) a data frame from panel-argument with added yo-yo column is returned; 
+#                    if FALSE, a data frame with columns specified in arguments with added yo-yo column is returned.
 
 ## Example
 yy <- yoyo(panel = df, pid = 1, waves = 3, bmi = 4)
+       
