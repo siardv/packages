@@ -40,5 +40,5 @@ yoyo <- function(panel, id, waves, bmi, append = TRUE) {
 #                    if FALSE, a data frame with columns specified in arguments with added yo-yo column is returned.
 
 ## Example
-yy <- yoyo(panel = df, pid = 1, waves = 3, bmi = 4)
+yy <- yoyo(panel = df, id = 1, waves = 3, bmi = 4)
        
