@@ -12,7 +12,7 @@ yoyo <- function(panel, id, waves, bmi, append = TRUE) {
   w <- subset(w, w[, 1] < w[, 2] & w[, 2] < w[, 3])
   cat("\n")
   for (p in seq_along(pid)) {
-    cat("\r Progress :", format(round(p/length(pid) * 100, 2), nsmall = 2), "%")   # progress
+    cat("\r Progress :", format(round(p/length(pid) * 100, 2), nsmall = 2), "%\t")   # progress
     sub <- df[df[1] == pid[p], ]   # valid wave combinations for participant p
     wp <- w[which(apply(w, 1, function(x) all(x %in% sub[, 2]))), ]
     wp <- data.frame(cbind(wp[, 3], wp), row.names = NULL)   # add reference wave: highest of 3-element subset (1, 3, 4) -> (4, 1, 3, 4)
