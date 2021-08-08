@@ -7,17 +7,17 @@ yoyo <- function(panel, id, waves, bmi, append = FALSE) {
   n <- unique(df[, 2])
   if (length(n) < 3) 
     stop("Minimum of 3 waves required.")
-  w <- expand.grid(n, n, n, stringsAsFactors = FALSE)   # generate all partially ordered 3-element subsets from the set of n-waves
+  w <- expand.grid(n, n, n, stringsAsFactors = FALSE)   # get all partially ordered 3-element subsets from the set of n-waves
   w <- subset(w, w[, 1] < w[, 2] & w[, 2] < w[, 3])     # select subsets where w1 < w2 < w3
   for (i in seq_along(ids)) {
     tryCatch({
       cat("\r Progress: ", format(round(i/length(ids) * 100, 2), nsmall = 2), "%\t", sep = "")
-      sub <- df[df[1] == ids[i], ]   # relevant  wave combinations
+      sub <- df[df[1] == ids[i], ]   # subsets for i
       if (any(table(sub[2]) > 1))
         warn <- 1
       wp <- w[which(apply(w, 1, function(x) all(x %in% sub[, 2]))), ]
-      wp <- data.frame(cbind(wp[, 3], wp))   # add reference wave: highest of 3-element subset (1, 3, 4) -> (4, 1, 3, 4)
-      wp[, 2:4] <- sapply(2:4, function(x) sub[, 3][match(wp[, x], unique(wp[, x]))]) # add corresponding BMI score (4, 21, 22, 21)
+      wp <- data.frame(cbind(wp[, 3], wp))   # add reference wave: (1, 3, 4) -> (4, 1, 3, 4)
+      wp[, 2:4] <- sapply(2:4, function(x) sub[, 3][match(wp[, x], unique(wp[, x]))]) # add BMI: (4, 1, 3, 4) -> (4, 21.2, 22.8, 20.9)
       yy <- which((wp[, 2] > wp[, 3] & wp[, 3] < wp[, 4]) | (wp[, 2] < wp[, 3] & wp[, 3] > wp[, 4]))   # detect yo-yo patterns: down-up | up-down
       if (length(yy) > 0) {
         wp[yy, 5] <- sapply(yy, function(x) mean(abs(diff(as.numeric(wp[x, 2:4])))))   # yo-yo mean per wave
