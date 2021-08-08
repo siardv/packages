@@ -12,10 +12,10 @@ yoyo <- function(panel, id, waves, bmi, append = FALSE) {
   for (i in seq_along(ids)) {
     tryCatch({
       cat("\r Progress: ", format(round(i/length(ids) * 100, 2), nsmall = 2), "%\t", sep = "")
-      sub <- df[df[1] == ids[i], ]   # subsets for i
+      sub <- df[df[1] == ids[i], ]
       if (any(table(sub[2]) > 1))
         warn <- 1
-      wp <- w[which(apply(w, 1, function(x) all(x %in% sub[, 2]))), ]
+      wp <- w[which(apply(w, 1, function(x) all(x %in% sub[, 2]))), ]   # subsets for i
       wp <- data.frame(cbind(wp[, 3], wp))   # add reference wave: (1, 3, 4) -> (4, 1, 3, 4)
       wp[, 2:4] <- sapply(2:4, function(x) sub[, 3][match(wp[, x], unique(wp[, x]))]) # add BMI: (4, 1, 3, 4) -> (4, 21.2, 22.8, 20.9)
       yy <- which((wp[, 2] > wp[, 3] & wp[, 3] < wp[, 4]) | (wp[, 2] < wp[, 3] & wp[, 3] > wp[, 4]))   # detect yo-yo patterns: down-up | up-down
