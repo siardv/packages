@@ -29,7 +29,7 @@ yoyo <- function(panel, id, waves, bmi, append = FALSE) {
   }
   if (append == TRUE)
     df <- merge(panel, df, by = names(panel)[c(id, waves, bmi)])
-  if(exists("warn"))
+  if (exists("warn"))
     cat("\n Some ids have multiple measures per wave: only first values are used.\n")
   return(df)
 }
