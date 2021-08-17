@@ -7,8 +7,7 @@ yoyo <- function(panel, id, waves, bmi, append = FALSE) {
   n <- unique(df[, 2])
   if (length(n) < 3) 
     stop("Minimum of 3 waves required.")
-  w <- expand.grid(n, n, n, stringsAsFactors = FALSE)   # get all partially ordered 3-element subsets from the set of n-waves
-  w <- subset(w, w[, 1] < w[, 2] & w[, 2] < w[, 3])     # select subsets where w1 < w2 < w3
+  w <- data.frame(t(utils::combn(n, 3))) # get all partially ordered 3-element subsets from the set of n-waves where w1 < w2 < w3
   for (i in seq_along(ids)) {
     tryCatch({
       cat("\r Progress: ", format(round(i/length(ids) * 100, 2), nsmall = 2), "%\t", sep = "")
