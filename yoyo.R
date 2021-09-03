@@ -9,7 +9,6 @@ yoyo <- function(panel, id, waves, bmi, append = FALSE) {
     stop("Minimum of 3 waves required.")
   w <- data.frame(t(utils::combn(n, 3))) # get all partially ordered 3-element subsets from the set of n-waves where w1 < w2 < w3
   for (i in seq_along(ids)) {
-    tryCatch({
       cat("\r Progress: ", format(round(i/length(ids) * 100, 2), nsmall = 2), "%\t", sep = "")
       sub <- df[df[1] == ids[i], ]
       if (any(table(sub[2]) > 1))
@@ -24,7 +23,6 @@ yoyo <- function(panel, id, waves, bmi, append = FALSE) {
         wp <- unique(wp[, c(1, 5)])
         apply(wp, 1, function(x) df[which(df[, 2] == x[1] & df[, 1] == ids[i]), 4] <<- x[2])
       }
-    }, error = function(e){})
   }
   if (append == TRUE)
     df <- merge(panel, df, by = names(panel)[c(id, waves, bmi)])
